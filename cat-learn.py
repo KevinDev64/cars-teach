@@ -37,6 +37,7 @@ y = df['price']
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=1)
 
 tic = time.perf_counter()
+# cat = CatBoostRegressor()
 cat = CatBoostRegressor(iterations=15000, depth=15, task_type="GPU")
 
 cat.fit(X_train, y_train)
@@ -51,3 +52,5 @@ toc = time.perf_counter()
 print(f"TIME {toc-tic:0.4f}")
 print(f'R2 {r2} | MAE {mae}')
 print(f'RMSE {rmse} | MSE {mse}')
+
+cat.save_model("model.bin")
